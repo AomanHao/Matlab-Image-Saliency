@@ -1,0 +1,43 @@
+%img_src = imread('101027.jpg');
+S=img_src;
+[row, column, c] = size(img_src );
+cform = makecform('srgb2lab');       %rgb空间转换成lab空间 matlab自带的用法
+img_Lab = applycform(img_src, cform);    %rgb转换成lab空间
+%img_src = imread('113044.jpg');
+%img_src = imread('12003.jpg');
+%img_src=imread('2009_005130.jpg');
+%img_src =imnoise(img_src ,'gaussian',0,0.002);
+%img_src = imread('微信图片_20180509095537.jpg');
+superpixelNum=300;
+ratio=0.075;
+nlabels=LSC_mex(img_src,superpixelNum,ratio);
+ind2=Img_Superpixel1(nlabels,img_src);
+%DisplaySuperpixel(label,img_src,1);
+img_ContoursEX = DrawContoursAroundSegments_EX(img_src ,nlabels );
+ %% 用鼠标画线得监督信息
+tic
+img_size = size(img_Lab);
+slic_k = length(unique(nlabels(:)));
+ind1= cell(1,slic_k);
+ind3= cell(1,slic_k);
+for i=1:slic_k
+    [x,y] = find(nlabels==i);
+   ind1{i} = find(nlabels==i);
+    ind3{i}=[x y];
+    a =ind3{i};
+    b= fix(median(a));
+    b=repmat(b,size(a,1),1);
+    z=sqrt((a(:,1)-b(:,1)).^2+(a(:,2)-b(:,2)).^2);
+    v=max(z+sqrt(length(a)));
+    w11=1-(z./v).^2;
+     for j =1:length(img_size)
+        temp =img_Lab (:,:,j);
+         ii=(a(:,2)-1)*256+a(:,1);
+         img_j = temp(ii);  
+         r=temp((b(1,2)-1)*256+b(1,1));
+         t= std2(img_j)+0.00001;
+         dist=distfcm(r,img_j);
+         w22=exp(-dist'/t);
+         data1(i,j)=sum((w11.*w22).*double(img_j))/sum(w11.*w22);
+    end
+end
