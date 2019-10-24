@@ -36,5 +36,3 @@ end
      end
  end
  im=mat2gray(im);
- figure;
- imshow(im);title('ÏÔÖøĞÔ');
