@@ -1,0 +1,12 @@
+function [y,u,v]=double2uint(x)
+x_max=max(max(x));   %取矩阵x的最大值
+x_min=min(min(x));   %取矩阵x的最小值
+x_dspan=x_max-x_min; %求最大差值
+x_uspan=256;
+scale=x_dspan/x_uspan;
+u=scale;
+diff_matrix=zeros(size(x));
+diff_matrix(:,:)=x_min;
+v=diff_matrix;
+z=(x-diff_matrix)./scale;
+y=round(z);        %取整
