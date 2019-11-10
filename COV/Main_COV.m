@@ -1,8 +1,13 @@
+%% 程序整理分享 
+% 西安邮电大学图像处理团队-郝浩
+% 个人博客 www.aomanhao.top
+% Github https://github.com/AomanHao
+%
 % Saliency estimation demo
 % [HISTORY]
 % Mar 19, 2013 : created by Aykut Erdem
 
-% close all;
+close all;
 clear all;
 clc;
 
@@ -15,14 +20,14 @@ options.modeltype = 'CovariancesOnly';  % 'CovariancesOnly' and 'SigmaPoints'
                                         % will be incorporated or not
 
 % Visual saliency estimation with covariances only                                    
-salmap1 = saliencymap('fish.png', options);
+salmap1 = saliencymap('3096.jpg', options);
 
 % Visual saliency estimation with covariances and means
 options.modeltype = 'SigmaPoints';
-salmap2 = saliencymap('fish.png', options);
+salmap2 = saliencymap('3096.jpg', options);
 
 % Display results
-im = imread('fish.png');
+im = imread('3096.jpg');
 subplot(131);
 imagesc(im); colormap(gray); axis image off;
 title('Input image');
