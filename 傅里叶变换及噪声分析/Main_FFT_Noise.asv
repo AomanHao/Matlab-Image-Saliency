@@ -27,9 +27,15 @@ imwrite(I,'2.jpg');
 
 %% 傅里叶变换
 F=fft2(I);
-F=fftshift(F);%对傅里叶变换后的图像进行象限转换
-F=abs(F);%傅里叶变换后的结果为复数，求复数的模
-T=log(F+1);%log(X+1)则将所有的x值，映射成正数，数值范围也更小一些
-figure;imshow(T,[]);
+
+F=fftshift(F);
+
+F=abs(F);
+
+T=log(F+1);
+
+figure;
+
+imshow(T,[]);
 
 
