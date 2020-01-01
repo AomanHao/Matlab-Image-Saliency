@@ -11,7 +11,7 @@ close all
 format long 
 %% %%%%%%%%%%%%%%%图像%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 tic;
-I=imread('huo2.jpg');
+I=imread('huo.jpg');
 figure;imshow(I);
 % 彩色转灰度
 if size(I,3) == 3
@@ -25,14 +25,14 @@ se1=strel('disk',15);%diamond 菱形结构元素，disk圆盘型结构元素，line线性结构元素
 f0=imopen(x,se1);%开运算（可以去除比结构元素更小的明亮细节）
 figure;imshow(f0);
 f1=imsubtract(x,f0);
-figure;imshow(f1);title('顶帽');
+figure;imshow(f1);
 
 %% %%%%%%%作f1的三维灰度图%%%%%%%%
-[c,b]=size(f1);                 % 取出图像大小
-[X,Y]=meshgrid(1:b,1:c);        % 生成网格坐标
-c=double(f1);                   % uint8 转换为 double   8位无符号数转化为双精度类型
-figure(4)
-mesh(X,Y,c);                    % 画图
+% [c,b]=size(f1);                 % 取出图像大小
+% [X,Y]=meshgrid(1:b,1:c);        % 生成网格坐标
+% c=double(f1);                   % uint8 转换为 double   8位无符号数转化为双精度类型
+% figure(4)
+% mesh(X,Y,c);                    % 画图
 
 %% %%%对f1进行阈值分割%%%%%%
 %%%%对其进行区间阈值进行分割%%%%%%
@@ -47,7 +47,8 @@ for i=1:width
         end
     end
 end
-figure;imshow(BW);title('阈值');
+figure(6)
+imshow(BW);
 
 %% %%%%%%将二值图像中小于面积P的区域去掉%%%%
 P=100;   %P为设定面积
@@ -79,7 +80,8 @@ end
 R=STATS(s).Centroid(1,1);
 T=STATS(s).Centroid(1,2);
 D=25;
-figure;imshow(I);
+figure(8)
+imshow(a);
 rectangle('position',[(R-D/2) (T-D/2) D D] );%做以(R，T)为中心的边长为D的正方形
 
         
