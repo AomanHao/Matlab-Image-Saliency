@@ -1,7 +1,5 @@
 %计算平均梯度
 clear all
-close all
-clear
 [filename,pathname]=uigetfile('*.*','图像');
 A=imread([pathname,filename]);
 %s=size(size(A));
@@ -17,16 +15,11 @@ for i=1:M-1
     for j=1:N-1
         diffX(i,j)=A(i,j)-A(i+1,j);
         diffY(i,j)=A(i,j)-A(i,j+1);
-        w(i,j)=sqrt(((diffX(i,j))^2+(diffY(i,j))^2)/2);
-        sum=sum+w(i,j);
+        w=sqrt(((diffX(i,j))^2+(diffY(i,j))^2)/2);
+        sum=sum+w;
     end
 end
 
-diffX_a = mapminmax(diffX);
-figure;imshow(diffX_a);
-diffY_a = mapminmax(diffY);
-figure;imshow(diffY_a);
-W_a = mapminmax(w);
-figure;imshow(W_a);
-
+diffX_a = abs(diffX);
+diffY
 AVEGRAD=sum/((M-1)*(N-1))
