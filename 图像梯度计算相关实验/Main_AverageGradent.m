@@ -22,10 +22,10 @@ figure;imshow(I);title('(a)原始图像')
 %I=imnoise(I,'speckle',deta_2);
 % I=imnoise(I,'salt & pepper',0.05); %加椒盐噪声
 % I=imnoise(I,'gaussian',0,0.01); % 加高斯噪声
-figure;imshow(I);title('(b)加噪图像');
+% figure;imshow(I);title('(b)加噪图像');
 
 %%  梯度法
-T=20;%阈值
+T=0.1;%阈值
 I_gradient=zeros(m,n);
 for i=2:m-1
     for j=2:n-1
@@ -37,9 +37,10 @@ for i=2:m-1
         end
     end
 end
-figure(1);subplot(2,3,1);imshow(uint8(I_gradient));title('梯度法');
- 
+figure;imshow(uint8(I_gradient));title('梯度法');
+
 %% roberts算子
+r=3;
 I_r=zeros(m,n);
 for i=2:m-1
     for j=2:n-1
@@ -52,21 +53,21 @@ for i=2:m-1
     end
 end
 I_r=imbinarize(imfilter(I,r),T);
-subplot(2,3,2);imshow(uint8(I_r));title('Roberts算子');
+figure;imshow(uint8(I_r));title('Roberts算子');
  
 %% prewitt算子
 I_prewitt=zeros(m,n);
 for i=2:m-1
     for j=2:n-1
         I_prewitt(i,j)=abs(I(i-1,j-1)+I(i,j-1)+I(i+1,j-1)-I(i-1,j+1)-I(i,j+1)-I(i+1,j+1))+abs(I(i+1,j-1)+I(i+1,j)+I(i+1,j+1)-I(i-1,j-1)-I(i-1,j)-I(i-1,j+1));
-        if I_prewitt(i,j)<15
+        if I_prewitt(i,j)<(15/255)
             I_prewitt(i,j)=0;
         else
             I_prewitt(i,j)=255;
         end
     end
 end
-subplot(2,3,3);imshow(uint8(I_prewitt));title('Prewitt算子');
+figure;imshow(uint8(I_prewitt));title('Prewitt算子');
  
 %% sobel算子
 I_sobel=zeros(m,n);
@@ -80,7 +81,7 @@ for i=2:m-1
         end
     end
 end
-subplot(2,3,4);imshow(uint8(I_sobel));title('Sobel算子');
+figure;imshow(uint8(I_sobel));title('Sobel算子');
  
  
 %% LoG算子
@@ -92,7 +93,7 @@ log1=[0 0 -1 0 0;
  
 I_l=conv2(I,log1,'same');
 I_log=imbinarize(abs(I_l),300);
-subplot(2,3,6);imshow(I_log);title('LoG算子');
+figure;;imshow(I_log);title('LoG算子');
 
 %% 平均梯度
 I=double(I);
@@ -114,5 +115,5 @@ figure;imshow(diffY_a);
 W_a = mapminmax(w);
 figure;imshow(W_a);
 
-AVEGRAD=sum/((m-1)*(n-1))
+AVEGRAD=sum/((m-1)*(n-1));
 
