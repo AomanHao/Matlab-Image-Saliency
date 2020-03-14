@@ -80,3 +80,7 @@ figure;
 imshow(xx),title('融合后的');
 
 out = darkDefog(img);
+
+%% 去雾函数
+De_img = anyuanse(img);
+figure;imshow(De_img);title('去雾图');
