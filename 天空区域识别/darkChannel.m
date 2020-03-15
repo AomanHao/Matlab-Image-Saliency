@@ -11,11 +11,4 @@ for i=1:m                 %获取暗通道
         a(i,j)=min(a(i,j),b(i,j));
     end
 end
-
-%%{d = ones(9,9);
-%%fun = @(block_struct)min(min(block_struct.data))*d;
- %dark = blockproc(a, [9 9],fun);
-
- %dark = dark(1:m, 1:n);
-
 dark=a;
