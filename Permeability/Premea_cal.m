@@ -3,7 +3,7 @@ function  Result = Premea_cal (img)
 R = img(:,:,1);
 G = img(:,:,2);
 B = img(:,:,3);
-[row, col] = size(img);
+[row, col, si] = size(img);
 Num = zeros(1,3);
 Mask = zeros(row, col);
 
@@ -11,8 +11,8 @@ Mask = zeros(row, col);
 for i =1:row
     for j = 1:col
        Num(1, 1)  = R(i, j);
-       Num(1, 2)  = R(i, j);
-       Num(1, 3)  = R(i, j);
+       Num(1, 2)  = G(i, j);
+       Num(1, 3)  = B(i, j);
     end
 end
 
@@ -28,4 +28,6 @@ for i =KernelSize+1 : KernelSize+row
        minMaskA(i,j) = min_numA;
     end
 end
+out = minMaskA(KernelSize:KernelSize+row, KernelSize:KernelSize+col);
+Result = mean(mean(out));
 

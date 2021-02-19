@@ -7,15 +7,20 @@ clear
 close all
 clc
 %% %%%%%%%%%%%%%%%图像%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-I=imread('3096.jpg');
+img=imread('3096.jpg');
 
 if size(img,3) == 3
-   I=rgb2gray(img);
+    Result = Premea_cal (img);
 else
+    disp('img is not color');
 end
-I=im2double(I);
-figure;imshow(I);title('(a)原始图像')
-[m,n]=size(I);
+
+
+
+
+img=im2double(img);
+figure;imshow(img);title('(a)原始图像')
+[m,n]=size(img);
 
 % imhist(I);
 % tabulate(I(:))%分布概率
